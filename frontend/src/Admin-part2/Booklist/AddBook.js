@@ -138,6 +138,9 @@ class AddBook extends Component {
         
         return (
             <Aux>
+                 {this.props.message.includes('Book is not added') ? <Notification open={true} variant='error' msg={this.props.message}/> : null}
+                 {this.props.message.includes('Book is added successfully') ? <Notification open={true} variant="success" msg={this.props.message}/> : null}
+             
                  <Row>
                     <Col>
                         <Card>
@@ -214,7 +217,7 @@ class AddBook extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        message: state.userReducer.message
+        message: state.bookReducer.message
     }
 }
 
