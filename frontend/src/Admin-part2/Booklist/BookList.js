@@ -119,10 +119,11 @@ class BookList extends React.Component {
                 <td><img className="rounded-circle" style={{ width: '40px' }} src={avatar2} alt="activity-user" /></td>
                 <td>
                     <h6 className="mb-1">{book.title}</h6>
+                    <p className="m-0">{book.price} RS</p>
                 </td>
               
                 <td>
-                <p className="m-0">{book.price} RS</p>
+                    <h6 className="text-muted">{book.authors}</h6>
                 </td>
                 <td>
                     <Link to={"/viewbook/" + book._id}><span style={{ width: '70px', display: 'inline-block', textAlign: 'center' }} className="label theme-bg2 text-white f-12">Update</span></Link>

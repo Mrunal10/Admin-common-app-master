@@ -112,7 +112,7 @@ class AddBook extends Component {
 
     async validateBook() {
        
-        let book = { title: this.state.title, category: this.state.category, isbn: this.state.isbn, authors:[{name:this.state.authors, books:this.state.title}],price: this.state.price, discount: this.state.discount, publishDate: this.state.publishDate, available: this.state.available };
+        let book = { title: this.state.title, category: this.state.category, isbn: this.state.isbn, authors:this.state.authors,price: this.state.price, discount: this.state.discount, publishDate: this.state.publishDate, available: this.state.available };
         console.log(book)
         await this.props.onAddBook(book);
         if(this.props.message.length>0)
