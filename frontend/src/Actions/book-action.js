@@ -2,6 +2,7 @@ import authHeader from '../services/auth-header'
 
 export const ADD_BOOK = "ADD_BOOK"
 export const ERROR_BOOK = "ERROR_BOOK"
+export const FETCH_BOOKS = "FETCH_BOOKS"
 const saveBook = (book) => {
     return {
         type: ADD_BOOK,
@@ -34,6 +35,22 @@ export const addbook = (book) => {
                     });
                 }
                 
+            })
+    }
+}
+
+export const fetchbooks = (filter,message='') => {
+    //add your code
+    console.log("***************"+filter);
+    return dispatch => {
+        fetch('http://localhost:8080/api/v1/book?sort=title&' + filter , {
+            headers: authHeader()
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data.total)
+                var newdata = {...data,message}
+                dispatch({ type: FETCH_BOOKS, payload: newdata });
             })
     }
 }

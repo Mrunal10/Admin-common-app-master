@@ -1,6 +1,6 @@
 import * as actions from '../Actions/book-action';
 let initialState = {
-    book: [
+    books: [
         {
             title:'',
             author:'',
@@ -13,7 +13,7 @@ let initialState = {
             stock:''
         }
     ],
-   
+    totalbook: "",
     message:''
 }
 
@@ -21,7 +21,13 @@ let initialState = {
 const reducer = (state = initialState, action) => {
     console.log('Action recieved at reducer***  ', action);
     switch (action.type) {
-        
+        case actions.FETCH_BOOKS:
+            return {
+                ...state,
+                message: action.payload.message,
+                books: action.payload.data,
+                totalbook: action.payload.total,
+            }
         case actions.ERROR_BOOK:
             return {
                

@@ -12,7 +12,8 @@ const BookSchema = new schema({
         trim: true,
         required: [true, 'Please provide a title'],
         match: [/[a-zA-Z]{2,}/, 'Please provide a valid title'],
-        index: true
+        index: true,
+        unique: true
     },
     category: {
         type: String,
