@@ -94,8 +94,8 @@ class BookList extends React.Component {
     }
 
    
-    onUpdateBook(id) {
-        this.props.history.push("/viewbook/" + id);
+    onUpdateBook(title) {
+        this.props.history.push("/viewbook/" + title);
     }
     
     render() {
@@ -126,15 +126,13 @@ class BookList extends React.Component {
                     <h6 className="text-muted">{book.authors}</h6>
                 </td>
                 <td>
-                    <Link to={"/viewbook/" + book._id}><span style={{ width: '70px', display: 'inline-block', textAlign: 'center' }} className="label theme-bg2 text-white f-12">Update</span></Link>
+                    <Link to={"/viewbook/" + i}><span style={{ width: '100px', display: 'inline-block', textAlign: 'center' }} className="label theme-bg2 text-white f-12">View/Update</span></Link>
                      <span style={{ width: '70px', display: 'inline-block', textAlign: 'center' }} className="label theme-bg3 text-white f-12" onClick={() => { this.onDeleteBook(book.title) }}>Delete</span>
                 </td>
             </tr>)
         })
         return (
             <Aux>
-                {this.props.message.includes('Unblocked') ? <Notification open={true} variant="info" msg={this.props.message}/> : null}
-                {this.props.message.includes('user is blocked') ? <Notification open={true} variant="warning" msg={this.props.message}/> : null}
                 {this.props.message.includes('Book is deleted successfully') ? <Notification open={true} variant="success" msg={this.props.message}/> : null}
                 <Row>
                     <Col md={12} xl={12}>
@@ -173,7 +171,7 @@ const mapStateToProps = (state) => {
         collapseMenu: state.reducer.collapseMenu,
         books: state.bookReducer.books,
         total: state.bookReducer.totalbook,
-        message: state.userReducer.message
+        message: state.bookReducer.message
     }
 }
 
