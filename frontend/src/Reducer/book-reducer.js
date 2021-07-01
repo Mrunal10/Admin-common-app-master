@@ -3,14 +3,14 @@ let initialState = {
     books: [
         {
             title:'',
-            author:'',
+            authors:'',
             isbn:'',
             price:'',
             discount:'',
             publishDate:'',
             category:'',
             price:'',
-            stock:''
+            available:''
         }
     ],
     totalbook: "",

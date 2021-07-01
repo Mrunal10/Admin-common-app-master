@@ -17,4 +17,11 @@ const addBook = asyncHandler(async (req, res, next) => {
     else res.status(201).json({ success: true, data: book,message:"Book is added successfully" });
 })
 
-module.exports = {addBook, fetchAllBook};
+const deleteBooksByTitle = asyncHandler(async (req, res, next) => {
+    let bookDel = await Book.findOneAndDelete({ title: req.params.title })
+    console.log(bookDel)
+    if (!bookDel) throw new Error(`Book Title(${req.params.title}) is not found`)
+    res.status(201).json({ success: true, data: bookDel,message:"Book is deleted successfully" })
+
+})
+module.exports = {addBook, fetchAllBook, deleteBooksByTitle};

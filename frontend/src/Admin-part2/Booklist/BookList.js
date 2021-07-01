@@ -78,13 +78,24 @@ class BookList extends React.Component {
         }
     }
 
-    onDeleteBook(email) {
-        this.props.onDelete(email, "page=" + this.state.active + "&limit=" + this.state.limit);
+    async onDeleteBook(title) {
+        await this.props.onDelete(title, "page=" + this.state.active + "&limit=" + this.state.limit);
+        if(this.props.message.length>0)
+        {
+            await this.setState({notify:true})
+            setTimeout(()=>{
+                this.setState({notify:false})
+            },2000)
+        }
+        else
+        {
+            this.setState({notify:false})
+        }
     }
 
    
     onUpdateBook(id) {
-        this.props.history.push("/updatebook/" + id);
+        this.props.history.push("/viewbook/" + id);
     }
     
     render() {
@@ -108,14 +119,13 @@ class BookList extends React.Component {
                 <td><img className="rounded-circle" style={{ width: '40px' }} src={avatar2} alt="activity-user" /></td>
                 <td>
                     <h6 className="mb-1">{book.title}</h6>
-                    <p className="m-0">{book.price} RS</p>
                 </td>
               
                 <td>
-                    <h6 className="text-muted">{book.author}</h6>
+                <p className="m-0">{book.price} RS</p>
                 </td>
                 <td>
-                    <Link to={"/profile/" + book._id}><span style={{ width: '70px', display: 'inline-block', textAlign: 'center' }} className="label theme-bg2 text-white f-12">Update</span></Link>
+                    <Link to={"/viewbook/" + book._id}><span style={{ width: '70px', display: 'inline-block', textAlign: 'center' }} className="label theme-bg2 text-white f-12">Update</span></Link>
                      <span style={{ width: '70px', display: 'inline-block', textAlign: 'center' }} className="label theme-bg3 text-white f-12" onClick={() => { this.onDeleteBook(book.title) }}>Delete</span>
                 </td>
             </tr>)
@@ -124,7 +134,7 @@ class BookList extends React.Component {
             <Aux>
                 {this.props.message.includes('Unblocked') ? <Notification open={true} variant="info" msg={this.props.message}/> : null}
                 {this.props.message.includes('user is blocked') ? <Notification open={true} variant="warning" msg={this.props.message}/> : null}
-                {this.props.message.includes('deleted') ? <Notification open={true} variant='error' msg={this.props.message}/> : null}
+                {this.props.message.includes('Book is deleted successfully') ? <Notification open={true} variant="success" msg={this.props.message}/> : null}
                 <Row>
                     <Col md={12} xl={12}>
                         <Card className='Recent-Users'>
@@ -169,7 +179,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         onToggleNavigation: () => dispatch({type: actionTypes.COLLAPSE_MENU}),
-        onDelete: (email, filter) => dispatch(useractions.deleteusers(email, filter)),
+        onDelete: (title, filter) => dispatch(bookactions.deletebooks(title, filter)),
         onGetBooks: (filter) => dispatch(bookactions.fetchbooks(filter)),
         onfilterUsers: (word,page,limit) => dispatch(useractions.filteruserbyname(word,page,limit))
 

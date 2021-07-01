@@ -9,7 +9,8 @@ const AuthorSchema = new schema({
         required: [true, 'Please provide a author name'],
     },
     books: {
-        type: [BookSchema]
+        type: String
+       
     }
    
 })

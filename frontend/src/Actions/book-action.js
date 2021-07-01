@@ -24,7 +24,7 @@ export const addbook = (book) => {
                 console.log(book)
                 if(book.success)
                 {
-                    // dispatch(fetchusers(""));
+                  
                     dispatch(saveBook(book));
                 }
                 else
@@ -52,5 +52,25 @@ export const fetchbooks = (filter,message='') => {
                 var newdata = {...data,message}
                 dispatch({ type: FETCH_BOOKS, payload: newdata });
             })
+    }
+}
+
+
+export const deletebooks = (title, filter) => {
+    //add your code
+    return dispatch => {
+        fetch('http://localhost:8080/api/v1/book/' + title, {
+            method: 'DELETE',
+            // headers: { 'Content-Type': 'application/json' }
+            headers: authHeader()
+        
+        })
+            .then((response) => {
+                return response.json();
+            })
+            .then((data) => {
+                console.log(data)
+                dispatch(fetchbooks(filter,data.message));
+            });
     }
 }

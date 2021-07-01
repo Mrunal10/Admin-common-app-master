@@ -39,9 +39,8 @@ const BookSchema = new schema({
     },
 
     authors: {
-        type: [AuthorSchema],
-        required: [true, 'Please provide a Author'],
-        index: true
+        type: [AuthorSchema]
+     
     },
 
     discount: {

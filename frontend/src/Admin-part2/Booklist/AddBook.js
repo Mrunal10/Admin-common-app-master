@@ -10,10 +10,10 @@ class AddBook extends Component {
     constructor() {
         super();
         this.state = {
-            title: '', isbn: '', category: '', author: '', price:'', stock:'', discount:'', publishDate:'', titleError: '', categoryError: '', isbnError: '',
-            authorError: '', titlevalid: 0, isbnvalid: 0, categoryvalid: 0, authorvalid: 0,
-            pricevalid: 0, priceError: '', publishDatevalid: 0, stockvalid : 0, discountvalid :0,
-            publishDateError:'', stockError:'', discountError:'', select:'', selectvalid : 0,notify:false
+            title: '', isbn: '', category: '', authors: '', price:'', available:'', discount:'', publishDate:'', titleError: '', categoryError: '', isbnError: '',
+            authorsError: '', titlevalid: 0, isbnvalid: 0, categoryvalid: 0, authorsvalid: 0,
+            pricevalid: 0, priceError: '', publishDatevalid: 0, availablevalid : 0, discountvalid :0,
+            publishDateError:'', availableError:'', discountError:'', select:'', selectvalid : 0,notify:false
         };
     }
 
@@ -52,16 +52,16 @@ class AddBook extends Component {
         this.setState({ isbn: value })
     }
     
-    authorCheck(event) {
+    authorsCheck(event) {
         let value = event.target.value
         const name = new RegExp('[a-zA-Z\s]{4,20}')
         if (!name.test(value)) {
-            this.setState({ authorError: "please enter a valid author name", authorvalid: 0 })
+            this.setState({ authorsError: "please enter a valid author name", authorsvalid: 0 })
         }
         else {
-            this.setState({ authorError: '', authorvalid: 1 })
+            this.setState({ authorsError: '', authorsvalid: 1 })
         }
-        this.setState({ author: value })
+        this.setState({ authors: value })
     }
 
     
@@ -76,15 +76,15 @@ class AddBook extends Component {
         this.setState({ price: value })
     }
 
-    stockCheck(event) {
+    availableCheck(event) {
         let value = event.target.value;
         if (value<0) {
-            this.setState({ stockError: "Stock should be a positive number", stockvalid: 0 })
+            this.setState({ availableError: "Availability should be a positive number", availablevalid: 0 })
         }
         else {
-            this.setState({ stockError: '', stockvalid: 1 })
+            this.setState({ availableError: '', availablevalid: 1 })
         }
-        this.setState({ stock: value })
+        this.setState({ available: value })
     }
 
     discountCheck(event) {
@@ -112,7 +112,7 @@ class AddBook extends Component {
 
     async validateBook() {
        
-        let book = { title: this.state.title, category: this.state.category, isbn: this.state.isbn, author: this.state.author,price: this.state.price, discount: this.state.discount, publishDate: this.state.publishDate, stock: this.state.stock };
+        let book = { title: this.state.title, category: this.state.category, isbn: this.state.isbn, authors:[{name:this.state.authors, books:this.state.title}],price: this.state.price, discount: this.state.discount, publishDate: this.state.publishDate, available: this.state.available };
         console.log(book)
         await this.props.onAddBook(book);
         if(this.props.message.length>0)
@@ -131,7 +131,7 @@ class AddBook extends Component {
 
     render() {
         var check = true;
-        if ((this.state.titlevalid === 1) && (this.state.categoryvalid === 1) && (this.state.isbnvalid === 1) && (this.state.authorvalid === 1) && (this.state.pricevalid === 1) && (this.state.discountvalid === 1) && (this.state.publishDatevalid === 1) && (this.state.stockvalid === 1)) {
+        if ((this.state.titlevalid === 1) && (this.state.categoryvalid === 1) && (this.state.isbnvalid === 1) && (this.state.authorsvalid === 1) && (this.state.pricevalid === 1) && (this.state.discountvalid === 1) && (this.state.publishDatevalid === 1) && (this.state.availablevalid === 1)) {
             check = false;
         }
 
@@ -187,8 +187,8 @@ class AddBook extends Component {
 
                                         <Form.Group controlId="exampleForm.ControlInput1">
                                             <Form.Label>Author Name</Form.Label>
-                                            <Form.Control type="text" onChange={this.authorCheck.bind(this)} placeholder="Enter Author Name" />
-                                            <p className="help-block text-danger">{this.state.authorError}</p>
+                                            <Form.Control type="text" onChange={this.authorsCheck.bind(this)} placeholder="Enter Author Name" />
+                                            <p className="help-block text-danger">{this.state.authorsError}</p>
                                         </Form.Group>
                                         <Form.Group controlId="formBasicPassword">
                                             <Form.Label>Discount</Form.Label>
@@ -197,8 +197,8 @@ class AddBook extends Component {
                                         </Form.Group>
                                         <Form.Group controlId="formBasicPassword">
                                             <Form.Label>Available Stock</Form.Label>
-                                            <Form.Control type="number" onChange={this.stockCheck.bind(this)} placeholder="Enter Available Stock" />
-                                            <p className="help-block text-danger">{this.state.stockError}</p>
+                                            <Form.Control type="number" onChange={this.availableCheck.bind(this)} placeholder="Enter Available Stock" />
+                                            <p className="help-block text-danger">{this.state.availableError}</p>
                                         </Form.Group>
                                         
                                     </Col>

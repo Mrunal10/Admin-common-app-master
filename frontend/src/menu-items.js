@@ -52,7 +52,7 @@ export default {
                             id: 'booklist',
                             title: 'Book List',
                             type: 'item',
-                            url: '/booklist'
+                            url: '/showbook'
                         },
                         {
                             id: 'addbook',
