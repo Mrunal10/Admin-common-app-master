@@ -1,3 +1,4 @@
+const AuthorSchema = require('./authors');
 const mongoose = require("mongoose");
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
@@ -37,12 +38,9 @@ const BookSchema = new schema({
         required: [true, 'Please provide a Publish Date'],
     },
 
-    author: {
-        type: String,
-        lowercase: true,
-        trim: true,
+    authors: {
+        type: [AuthorSchema],
         required: [true, 'Please provide a Author'],
-        match: [/[a-zA-Z]{4,}/, 'Please provide a valid Author'],
         index: true
     },
 
@@ -51,7 +49,7 @@ const BookSchema = new schema({
         default: 0
     },
 
-    stock: {
+    available: {
         type: Number,
         default:0
     }
