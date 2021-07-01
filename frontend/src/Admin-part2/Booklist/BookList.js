@@ -12,10 +12,9 @@ import avatar3 from '../../assets/images/user/avatar-3.jpg';
 import { Link } from 'react-router-dom'
 import Pagination from 'react-bootstrap/Pagination'
 import { connect } from 'react-redux';
-import * as useractions from '../../Actions/user-action';
 import * as bookactions from '../../Actions/book-action';
 import NavLeft from '../../App/layout/AdminLayout/NavBar/NavLeft/index';
-import NavSearch from '../../App/layout/AdminLayout/NavBar/NavLeft/NavSearch';
+import BookSearch from '../../App/layout/AdminLayout/NavBar/NavLeft/NavSearch/booksearch';
 import Notification from '../../Admin-part1/Notification/Notification';
 
 class BookList extends React.Component {
@@ -137,7 +136,13 @@ class BookList extends React.Component {
                 <Row>
                     <Col md={12} xl={12}>
                         <Card className='Recent-Users'>
-                           
+                        <Card.Header style={{marginLeft:"0",background: 'transparent',width:"100%",paddingTop:"10px",paddingBottom:"10px"}} className="navbar pcoded-header navbar-expand-lg">
+                                        <div style={{background: 'transparent'}} className="collapse navbar-collapse">
+                                        <Card.Title as='h5'>Books</Card.Title>
+                                            <BookSearch role={this.state.isAdmin} />
+                                            
+                                        </div>  
+                            </Card.Header>
                             <Card.Body className='px-0 py-2'>
                                 <Table responsive hover>
                                     <tbody>
@@ -180,7 +185,7 @@ const mapDispatchToProps = (dispatch) => {
         onToggleNavigation: () => dispatch({type: actionTypes.COLLAPSE_MENU}),
         onDelete: (title, filter) => dispatch(bookactions.deletebooks(title, filter)),
         onGetBooks: (filter) => dispatch(bookactions.fetchbooks(filter)),
-        onfilterUsers: (word,page,limit) => dispatch(useractions.filteruserbyname(word,page,limit))
+        onfilterBooks: (word,page,limit) => dispatch(bookactions.filterbookbytitle(word,page,limit))
 
     }
 }

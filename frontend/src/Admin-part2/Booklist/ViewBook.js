@@ -5,14 +5,12 @@ import { Card, Form, Button, Row, Col } from 'react-bootstrap'
 import { Table } from 'react-bootstrap'
 import { useParams } from "react-router-dom"
 import { connect } from 'react-redux';
-import * as orderactions from '../../Actions/order-action';
 import Notification from '../../Admin-part1/Notification/Notification';
 import { useHistory } from "react-router";
 
 import Aux from "../../hoc/_Aux";
 import avatar2 from '../../assets/images/user/avatar-2.jpg';
 
-import * as useractions from '../../Actions/user-action';
 import * as bookactions from '../../Actions/book-action';
 
 

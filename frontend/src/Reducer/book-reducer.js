@@ -52,6 +52,12 @@ const reducer = (state = initialState, action) => {
                 books: action.payload.data,
                 totalbook: action.payload.total,
                 }
+        case actions.FILTER_BOOK:
+            return {
+                ...state,
+                books: action.payload.data,
+                totalbook: action.payload.total
+            }
         default: return state
     }
 
